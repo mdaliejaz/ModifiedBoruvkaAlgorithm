@@ -1,0 +1,15 @@
+CC=cilk++
+CFLAGS=-O3 
+
+all:serial_boruvka parallel_boruvka
+
+serial_boruvka:
+	@echo "Generating executables for serialized version"
+	g++ boruvka_cpu.cpp -o serial_boruvka
+parallel_boruvka:
+	@echo "Generating executables for parallel version"
+	$(CC) $(CFLAGS) -o parallel_boruvka parallel_boruvka.cilk -lcilkutil
+
+clean:
+	@echo "Cleaning up all the generated executables"
+	rm serial_boruvka parallel_boruvka
